@@ -13,14 +13,6 @@
 
 [NOTE]
 ====
-Users sometimes think that having a fixed number of primary shards makes it
-difficult to scale out an index later.  In reality, there are techniques
-that make it easy to scale out as and when you need. We talk more about these
-in <<scale>>.
-====
-
-[NOTE]
-====
 你可能会觉得我们预先固定了主分片的编号会让索引难以水平扩展。实际上我们可以很容易进行水平扩展。我们将会在<<scale>>一章中提到更多有关水平扩展的内容。
 ====
 
