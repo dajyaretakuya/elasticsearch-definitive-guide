@@ -1,7 +1,7 @@
 [[routing-value]]
 === 路由一个文档到分片中
 
-文档被索引后，将被存储到一个主分片中。((("shards", "routing a document to")))((("documents", "routing a document to a shard")))((("routing a document to a shard")))Elasticsearch如何知道一个文档应该存放到哪个分片中呢？我们创建文档后，它如何决定这个文档应当被存储在分片1还是分片2中呢？
+文档被索引后，将被存储到一个主分片中。 ((("shards", "routing a document to")))((("documents", "routing a document to a shard")))((("routing a document to a shard"))) Elasticsearch如何知道一个文档应该存放到哪个分片中呢？我们创建文档后，它如何决定这个文档应当被存储在分片1还是分片2中呢？
 
 首先这肯定不会是随机的，否则将来要获取文档的时候我们就不知道从何处寻找了。实际上，这个过程是根据下面这个公式决定的：
 
@@ -9,11 +9,11 @@
 
 `routing` 是一个可变值，默认是文档的 `id` ，也可以设置成一个自定义的值。 `routing` 作为参数传进hash函数中，返回一个数字，然后这个数字再和 `number_of_primary_shards` 取余，最后计算出的这个_余数_在 `0` 到 `number_of_primary_shards-1` 之间，这个结果就是我们最后需要获取的分片位置。
 
-这就解释了为什么我们要在创建索引的时候就分配好主分片的编号((("primary shards", "fixed number of, routing and")))并且永远不会改变这个编号：因为如果编号变化了，那么所有之前路由的值都会无效，文档也再也找不到了。
+这就解释了为什么我们要在创建索引的时候就分配好主分片的编号 ((("primary shards", "fixed number of, routing and"))) 并且永远不会改变这个编号：因为如果编号变化了，那么所有之前路由的值都会无效，文档也再也找不到了。
 
 [NOTE]
 ====
 你可能会觉得我们预先固定了主分片的编号会让索引难以水平扩展。实际上我们可以很容易进行水平扩展。我们将会在<<scale>>一章中提到更多有关水平扩展的内容。
 ====
 
-所有的文档API（`get`、`index`、`delete`、`bulk`、`update`以及`mget`）都接受一个叫做`routing`的路由参数((("routing parameter")))，通过这个参数我们可以自定义文档到分片的映射。一个自定义的路由参数可以用来确保所有相关的文档——例如所有属于同一个用户的文档——都被存储到同一个分片中。我们也会在<<scale>>这一章中详细讨论为什么会有这样一种需求。
+所有的文档API（ `get` 、 `index` 、 `delete` 、 `bulk` 、 `update` 以及 `mget` ）都接受一个叫做 `routing` 的路由参数 ((("routing parameter"))) ，通过这个参数我们可以自定义文档到分片的映射。一个自定义的路由参数可以用来确保所有相关的文档——例如所有属于同一个用户的文档——都被存储到同一个分片中。我们也会在<<scale>>这一章中详细讨论为什么会有这样一种需求。
