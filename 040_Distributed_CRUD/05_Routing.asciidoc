@@ -1,7 +1,7 @@
 [[routing-value]]
 === 路由一个文档到分片中
 
-文档被索引后，将被存储到一个主分片中。 ((("shards", "routing a document to")))((("documents", "routing a document to a shard")))((("routing a document to a shard"))) Elasticsearch如何知道一个文档应该存放到哪个分片中呢？我们创建文档后，它如何决定这个文档应当被存储在分片1还是分片2中呢？
+当索引一个文档的时候，文档会被存储到一个主分片中。 ((("shards", "routing a document to")))((("documents", "routing a document to a shard")))((("routing a document to a shard"))) Elasticsearch如何知道一个文档应该存放到哪个分片中呢？我们创建文档后，它如何决定这个文档应当被存储在分片1还是分片2中呢？
 
 首先这肯定不会是随机的，否则将来要获取文档的时候我们就不知道从何处寻找了。实际上，这个过程是根据下面这个公式决定的：
 
